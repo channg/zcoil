@@ -1,0 +1,31 @@
+{
+  "name": "zcoil",
+  "version": "0.0.0",
+  "description": "zcoil",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "serve": "webpack-dev-server --mode development --port 8088"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "repository": "",
+  "author": "channg",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jquery": "^3.3.0",
+    "css-loader": "^0.28.10",
+    "less": "^3.0.1",
+    "less-loader": "^4.0.6",
+    "style-loader": "^0.20.2",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.4",
+    "webpack-dev-server": "^3.1.0"
+  },
+  "dependencies": {
+  }
+}
