@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    app: "./src/index"
+    app: "./src/test.ts"
   },
   devtool: 'inline-source-map',
   module: {
@@ -22,7 +22,6 @@ module.exports = {
   },
   optimization: {
        splitChunks: {
-         name: 'jquery'
        }
    },
   resolve: {
