@@ -4,20 +4,43 @@ let z = new zcoil()
 z.init({
     data(){
         return {
-            len: 0
+            len: 0,
+            text: ""
         }
     },
     fetch(){
-        console.log(this.len)
         return Promise.resolve(100)
     },
+    do(){
+        return new Promise((resolve)=> {
+            setTimeout(()=>{
+                resolve(200)
+            },1000)
+        })
+    },
     get(){
-        this.len = 100
+        this.len+=20
+    },
+    leng(){
+        console.log(this)
+        this.fetch().then((id:any)=>{
+            this.len+=id
+        })
+    },
+    dosome(){
+        this.do().then((d:any)=>{
+            this.len = d
+        })
     }
 })
 
-z.fetch().then((data:any)=>{
-    console.log(data)
+
+
+
+
+z.$coil().dosome().leng().exec(()=>{
+    console.log(z.len)
 })
 
-z.get()
+
+

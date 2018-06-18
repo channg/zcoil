@@ -1,3 +1,5 @@
-export interface zcoilInterface {
-    init:Function;
+interface zcoilInterface {
 }
+
+
+export {zcoilInterface}
