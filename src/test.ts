@@ -9,7 +9,7 @@ z.init({
         }
     },
     fetch(){
-        return Promise.resolve(100)
+        return Promise.resolve(2)
     },
     do(){
         return new Promise((resolve)=> {
@@ -18,15 +18,18 @@ z.init({
             },1000)
         })
     },
-    get(){
+    j20(){
+        console.log(this.len)
         this.len+=20
+        console.log(this.len)
     },
-    leng(){
+    x2(){
+        console.log(this.len)
         this.fetch().then((id:any)=>{
-            this.len+=id
+            this.len*=id
         })
     },
-    dosome(){
+    d20(){
         this.do().then((d:any)=>{
             this.len = d
         })
@@ -38,13 +41,10 @@ z.init({
 
 
 
-z.$coil().dosome({aa:11}).leng().exec(()=>{
+z.$coil().d20().x2().j20().d20().x2().j20().exec(()=>{
+    console.log('callback')
     console.log(z.len)
 })
 
-
-z.$coil().leng().dosome().exec(()=>{
-    console.log(z.len)
-})
 
 

@@ -57,6 +57,7 @@ class zcoil implements zcoilInterface {
                         })
                     } else {
                         Promise.resolve().then(()=> {
+                            that._dataTransToThis(_to_model)
                             if (this._call) {
                                 this._call(key, 'pop')
                             }
@@ -66,6 +67,7 @@ class zcoil implements zcoilInterface {
                     }
                 } else {
                     Promise.resolve().then(()=> {
+                        that._dataTransToThis(_to_model)
                         if (this._call) {
                             this._call(key, 'pop')
                         }
@@ -114,11 +116,12 @@ class zcoil implements zcoilInterface {
     }
 }
 
-class Jumper{
+class Jumper {
     model:any = {}
+
     constructor(_model:any, some:any, data:any) {
         forIn(_model, (value, key)=> {
-            if (has(data,key)) {
+            if (has(data, key)) {
                 this.model[key] = data[key]
             } else {
                 this.model[key] = value
@@ -127,7 +130,6 @@ class Jumper{
         this.model['_call'] = some._call
     }
 }
-
 
 
 export default zcoil;
