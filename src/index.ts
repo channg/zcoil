@@ -78,7 +78,7 @@ class zcoil implements zcoilInterface {
     };
 
     private _before(key:String) {
-        console.log('before:' + key)
+        //console.log('before:' + key)
     };
 
     private _after(key:any, _to_model:any) {
@@ -88,7 +88,7 @@ class zcoil implements zcoilInterface {
         } else {
             this._caller[key]++
         }
-        console.log('after:' + key)
+        //console.log('after:' + key)
     };
 
     private _error(key:String, _to_model:any) {

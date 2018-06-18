@@ -14,7 +14,7 @@ z.init({
     do(){
         return new Promise((resolve)=> {
             setTimeout(()=>{
-                resolve(200)
+                resolve(20)
             },1000)
         })
     },
@@ -22,7 +22,6 @@ z.init({
         this.len+=20
     },
     leng(){
-        console.log(this)
         this.fetch().then((id:any)=>{
             this.len+=id
         })
@@ -38,9 +37,14 @@ z.init({
 
 
 
-z.$coil().dosome().leng().exec(()=>{
+
+z.$coil().dosome({aa:11}).leng().exec(()=>{
     console.log(z.len)
 })
 
+
+z.$coil().leng().dosome().exec(()=>{
+    console.log(z.len)
+})
 
 
