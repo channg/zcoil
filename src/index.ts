@@ -1,16 +1,16 @@
 import {forIn,assign,has} from 'lodash'
-import {zcoilInterface} from './interface'
 import {isPromise} from './utils'
 import {coil} from './coil'
-class zcoil implements zcoilInterface {
+import {coilConif} from './interface/coilConfig'
+class zcoil {
     [key: string]: any;
     _data:any = {};
     _func:any = {};
     _caller:any = {};
 
-    $coil(args?:any) {
-        return new coil(this._data, this._func, this._model, this)
-    }
+    $coil(args?:coilConif) {
+        return new coil(this._data, this._func, this._model, this,args)
+    };
 
     /**
      * init 方法初始化数据,并绑定方法,根据返回值不同,在不同时刻进行不同操作监听数据变动,
@@ -110,14 +110,14 @@ class zcoil implements zcoilInterface {
                 this._data[key] = this[key] = this._model[key] = value
             }
         })
-    }
+    };
 
     constructor() {
-    }
+    };
 }
 
 class Jumper {
-    model:any = {}
+    model:any = {};
 
     constructor(_model:any, some:any, data:any) {
         forIn(_model, (value, key)=> {
@@ -128,7 +128,7 @@ class Jumper {
             }
         })
         this.model['_call'] = some._call
-    }
+    };
 }
 
 

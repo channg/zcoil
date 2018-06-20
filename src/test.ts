@@ -2,49 +2,42 @@ import zcoil from './index'
 
 let z = new zcoil()
 z.init({
-    data(){
+    data() {
         return {
-            len: 0,
+            len: 2,
             text: ""
         }
     },
-    fetch(){
-        return Promise.resolve(2)
+    fetch() {
+        return Promise.reject('test error')
     },
-    do(){
-        return new Promise((resolve)=> {
-            setTimeout(()=>{
+    do() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
                 resolve(20)
-            },1000)
+            }, 1000)
         })
     },
-    j20(){
-        console.log(this.len)
-        this.len+=20
-        console.log(this.len)
+    j20() {
+        this.len += 20
     },
-    x2(){
-        console.log(this.len)
-        this.fetch().then((id:any)=>{
-            this.len*=id
+    x2() {
+        this.fetch().then((id: any) => {
+            this.len *= id
         })
     },
-    d20(){
-        this.do().then((d:any)=>{
+    d20() {
+        this.do().then((d: any) => {
             this.len = d
         })
     }
 })
 
-
-
-
-
-
-z.$coil().d20().x2().j20().d20().x2().j20().exec(()=>{
-    console.log('callback')
-    console.log(z.len)
+z.$coil({rollback: false, errorContinue: true}).d20().x2().j20().exec((data: any, error: any) => {
+    console.log(data.len)
+    console.log(error)
 })
+
 
 
 

@@ -1,5 +1,0 @@
-interface zcoilInterface {
-}
-
-
-export {zcoilInterface}
