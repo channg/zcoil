@@ -1,7 +1,7 @@
 import {forIn,assign,has} from 'lodash'
 import {isPromise} from './utils'
 import {coil} from './coil'
-import {coilConif} from './interface/coilConfig'
+import {coilConif} from './interface/CoilConfig'
 class zcoil {
     [key: string]: any;
     _data:any = {};

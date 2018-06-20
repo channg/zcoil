@@ -1,5 +1,5 @@
 import {assign, forIn} from 'lodash'
-import {coilConif} from './interface/coilConfig'
+import {coilConif} from './interface/CoilConfig'
 
 export class coil {
     pArray: any[] = [];
