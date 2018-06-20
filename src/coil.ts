@@ -56,16 +56,13 @@ export class coil {
     _ca(key: any, type: String) {
         if (type === 'push') {
             ++this._call_index
-            console.log(key + ':' + type + ';' + this._call_index)
         } else if (type === 'pop'||(this._default_config.errorContinue&&type === 'err')) {
             --this._call_index
-            console.log(key + ':' + type + ';' + this._call_index)
             if(type==='err'){
                 this._error = new Error('The call chain has reject')
             }
             this._check_call_array()
         } else if (type === 'err'&&!this._default_config.errorContinue) {
-
             this._call_index = 0
             this.pArray = []
             this._error = new Error('The call chain has reject')
@@ -84,6 +81,7 @@ export class coil {
                 }
                 this._callback(this._model, this._error)
                 this._error = null
+                this._call_stack = []
             }
         }
     };

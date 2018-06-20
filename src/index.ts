@@ -12,6 +12,9 @@ class zcoil {
         return new coil(this._data, this._func, this._model, this,args)
     };
 
+    $watch(expression?:String){
+    }
+
     /**
      * init 方法初始化数据,并绑定方法,根据返回值不同,在不同时刻进行不同操作监听数据变动,
      * @param data
