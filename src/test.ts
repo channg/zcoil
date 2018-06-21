@@ -5,11 +5,12 @@ z.init({
     data() {
         return {
             len: 2,
-            text: ""
+            text: "",
+            msg:{aa:11}
         }
     },
     fetch() {
-        return Promise.reject('test error')
+        return Promise.resolve(2)
     },
     do() {
         return new Promise((resolve) => {
@@ -19,7 +20,7 @@ z.init({
         })
     },
     j20() {
-        this.len += 20
+        this.msg .aa =200
     },
     x2() {
         this.fetch().then((id: any) => {
@@ -33,10 +34,12 @@ z.init({
     }
 })
 
-z.$coil({rollback: false, errorContinue: true}).d20().x2().j20().exec((data: any, error: any) => {
-    console.log(data.len)
-    console.log(error)
+z.$watch(function () {
 })
+
+
+z.j20()
+
 
 
 
