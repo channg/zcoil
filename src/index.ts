@@ -1,4 +1,4 @@
-import {forIn, has} from 'lodash'
+import {forIn, has,cloneDeep} from 'lodash'
 import {isPromise} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/CoilConfig'
@@ -16,9 +16,14 @@ class zcoil {
     };
 
     $watch(callback?: Function): void;
-    $watch(expression: Array<String>, callback?: Function): void;
-    $watch(expression: any, callback?: Function) {
-        this._watch_array.push(new watch(expression, callback))
+    $watch(expression?:String|Array<String>, callback?: Function):void;
+    $watch(expression?:any, callback?: Function) {
+        if(typeof expression==='function'){
+            this._watch_array.push(new watch(null, expression, cloneDeep(this._data)))
+        }
+        else{
+            this._watch_array.push(new watch(expression, callback, cloneDeep(this._data)))
+        }
     }
 
     /**
@@ -107,21 +112,17 @@ class zcoil {
         //console.log('error:' + key)
     };
 
-    private _warch_each_call(from:any,to:any) {
+    private _warch_each_call(to:any) {
         if (this._watch_array.length > 0) {
             this._watch_array.forEach((_watch)=>{
-                _watch._on_data_change(from,to)
+                _watch._on_data_change(to)
             })
         }
     }
 
 
     public _dataTransToThis(_to_model?: any) {
-        let _watch_from: any = {}
         forIn(this._data, (value, key) => {
-            if (this._watch_array.length > 0) {
-                _watch_from[key] = value
-            }
 
             if (!!_to_model) {
                 this._data[key] = this[key] = value = this._model[key] = _to_model[key]
@@ -134,7 +135,7 @@ class zcoil {
             }
         })
         if (this._watch_array.length > 0) {
-            this._warch_each_call(_watch_from,this._data)
+            this._warch_each_call(this._data)
         }
     };
 

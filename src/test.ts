@@ -20,7 +20,7 @@ z.init({
         })
     },
     j20() {
-        this.msg .aa =200
+        this.msg.aa +=200
     },
     x2() {
         this.fetch().then((id: any) => {
@@ -34,11 +34,16 @@ z.init({
     }
 })
 
-z.$watch(function () {
+z.$watch(function (from:any,to:any) {
+    debugger
 })
 
 
 z.j20()
+z.j20()
+z.j20()
+z.j20()
+
 
 
 
