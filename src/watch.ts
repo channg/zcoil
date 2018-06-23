@@ -1,24 +1,31 @@
-import {isEqual,cloneDeep} from 'lodash'
+import {isEqual,cloneDeep,get} from 'lodash'
 /**
  * watch  每调用一次$watch 就会初始化一个 watch 对象
  */
 export class watch{
-    _expression:String|Array<String>;
+    _expression:string;
     _expression_is_array:Boolean
     _init_data:any
     _callback:Function
     _on_data_change(to:any){
         // expression 为string
-        if(this._expression!&&this._expression_is_array){
-
-
-        }
-
-        if(isEqual(to,this._init_data)){
+        if(this._expression&&!this._expression_is_array){
+            var isEq = this._expressionEquals(this._expression,to,this._init_data)
+            if(!isEq){
+                this._callback(get(this._init_data,this._expression),get(to,this._expression))
+                this._init_data = cloneDeep(to)
+            }
         }else{
-            this._callback(this._init_data,to)
-            this._init_data = cloneDeep(to)
+            if(!isEqual(to,this._init_data)){
+                this._callback(this._init_data,to)
+                this._init_data = cloneDeep(to)
+            }
         }
+    }
+
+    _expressionEquals(expression:any,to:any,from:any){
+        return isEqual(get(to,expression),get(from,expression))
+
     }
     constructor(expression:any,callback:Function,_data:any){
         this._callback = callback
@@ -26,9 +33,6 @@ export class watch{
         if(typeof expression=='string'){
             this._expression = expression
             this._expression_is_array = false
-        }else if(Array.isArray(expression)){
-            this._expression = expression
-            this._expression_is_array = true
         }
     }
 }

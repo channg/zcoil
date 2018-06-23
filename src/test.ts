@@ -29,12 +29,12 @@ z.init({
     },
     d20() {
         this.do().then((d: any) => {
-            this.len = d
+            this.msg.aa = 200
         })
     }
 })
 
-z.$watch(function (from:any,to:any) {
+z.$watch('msg',function (from:any,to:any) {
     debugger
 })
 
@@ -43,6 +43,7 @@ z.j20()
 z.j20()
 z.j20()
 z.j20()
+z.d20()
 
 
 
