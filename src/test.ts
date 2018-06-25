@@ -31,6 +31,12 @@ z.init({
         this.do().then((d: any) => {
             this.len = d
         })
+    },
+    testCommit(){
+        setTimeout(()=>{
+            this.len = 200
+            this.$commit()
+        },1000)
     }
 })
 
@@ -38,12 +44,7 @@ z.$watch(function (from:any,to:any) {
     debugger
 })
 
-
-z.j20()
-z.j20()
-z.j20()
-z.j20()
-
+z.testCommit()
 
 
 

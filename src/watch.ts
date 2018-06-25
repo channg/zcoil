@@ -9,11 +9,6 @@ export class watch{
     _callback:Function
     _on_data_change(to:any){
         // expression 为string
-        if(this._expression!&&this._expression_is_array){
-
-
-        }
-
         if(isEqual(to,this._init_data)){
         }else{
             this._callback(this._init_data,to)

@@ -10,7 +10,6 @@ class zcoil {
     _func: any = {};
     _caller: any = {};
     _watch_array: any[] = []
-
     $coil(args?: coilConif) {
         return new coil(this._data, this._func, this._model, this, args)
     };
@@ -26,6 +25,13 @@ class zcoil {
         }
     }
 
+    $commit(){
+        this.$zcoil._dataTransToThis.call(this.$zcoil,this)
+    }
+    _push_dictate(model:any){
+        model.$commit = this.$commit
+    }
+
     /**
      * init 方法初始化数据,并绑定方法,根据返回值不同,在不同时刻进行不同操作监听数据变动,
      * @param data
@@ -39,9 +45,10 @@ class zcoil {
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
+                _to_model = new Jumper(that._model, this, that._data).model
+                this._push_dictate(_to_model)
                 if (this._call) {
                     this._call(key, 'push')
-                    _to_model = new Jumper(that._model, this, that._data).model
                 }
                 that._before(key)
                 that._dataTransToThis(_to_model)
@@ -112,7 +119,7 @@ class zcoil {
         //console.log('error:' + key)
     };
 
-    private _warch_each_call(to:any) {
+    private _watch_each_call(to:any) {
         if (this._watch_array.length > 0) {
             this._watch_array.forEach((_watch)=>{
                 _watch._on_data_change(to)
@@ -121,9 +128,8 @@ class zcoil {
     }
 
 
-    public _dataTransToThis(_to_model?: any) {
+    public  _dataTransToThis(_to_model?: any) {
         forIn(this._data, (value, key) => {
-
             if (!!_to_model) {
                 this._data[key] = this[key] = value = this._model[key] = _to_model[key]
             }
@@ -135,18 +141,14 @@ class zcoil {
             }
         })
         if (this._watch_array.length > 0) {
-            this._warch_each_call(this._data)
+            this._watch_each_call(this._data)
         }
-    };
-
-    constructor() {
     };
 }
 
 class Jumper {
     model: any = {};
-
-    constructor(_model: any, some: any, data: any) {
+    constructor(_model: any, zcoil: any, data: any) {
         forIn(_model, (value, key) => {
             if (has(data, key)) {
                 this.model[key] = data[key]
@@ -154,7 +156,8 @@ class Jumper {
                 this.model[key] = value
             }
         })
-        this.model['_call'] = some._call
+        this.model['_call'] = zcoil._call
+        this.model.$zcoil = zcoil
     };
 }
 
