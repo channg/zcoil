@@ -1,8 +1,11 @@
-module.exports = (env, argv)=>{
-  const config =  {
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+module.exports = (env, argv) => {
+  const config = {
     entry: {
       app: "./src/test.ts"
     },
+    
     module: {
       rules: [{
         test: /\.less$/,
@@ -33,6 +36,19 @@ module.exports = (env, argv)=>{
   
   if (argv.mode === 'development') {
     config.devtool = 'inline-source-map'
+  } else {
+    config.plugins = [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false
+          },
+          output: {
+            comments: false
+          }
+        }
+      })
+    ]
   }
   return config
 }
