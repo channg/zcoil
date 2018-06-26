@@ -34,15 +34,20 @@
       })
     },
     assignment() {
-      this.index = 200
+      this.index += 200
     }
   })
   z.$watch((from,to)=>{
     console.log(from)
     console.log(to)
   })
-  z.index = 200
-    z.$commit()
+  z.$coil().addIndex().multiply().assignment().exec(function(){
+    console.log(z)
+  })
+
+  z.$coil().addIndex().multiply().assignment().exec(function(){
+    console.log(z)
+  })
 </script>
 </body>
 </html>

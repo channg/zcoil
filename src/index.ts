@@ -52,7 +52,9 @@ class zcoil {
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
-                _to_model = new Jumper(that._model, this, that._data).model
+                if(this._call){
+                    _to_model = new Jumper(that._model, this, that._data).model
+                }
                 that._push_dictate(_to_model)
                 if (this._call) {
                     this._call(key, 'push')
