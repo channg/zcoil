@@ -40,15 +40,13 @@ z.init({
     }
 })
 
-z.$watch('msg',function (from:any,to:any) {
-    debugger
+z.$coil().d20().x2().j20().exec(function(data:any){
 })
 
-
-z.testCommit()
-
-
-
+z.$watch(function(from:any,to:any){
+    console.log(from)
+    console.log(to)
+})
 
 
 

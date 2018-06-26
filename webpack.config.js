@@ -3,7 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = (env, argv) => {
   const config = {
     entry: {
-      app: "./src/test.ts"
+      zcoil: "./src/index.ts"
     },
     
     module: {
@@ -30,7 +30,11 @@ module.exports = (env, argv) => {
       extensions: ['.tsx', '.ts', '.js']
     },
     output: {
+      globalObject:'this',
+      libraryTarget: 'umd',
+      library: "zcoil",
       filename: "[name].js",
+      libraryExport: 'default'
     }
   }
   

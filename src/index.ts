@@ -1,14 +1,17 @@
-import {forIn, has,cloneDeep} from 'lodash'
+import {forIn, merge,has,cloneDeep} from 'lodash'
 import {isPromise} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/CoilConfig'
 import {watch} from './watch'
 
 class zcoil {
+    static assign(...datas:any[]){
+        return merge({},...datas)
+
+    }
     [key: string]: any;
-    _data: any = {};
-    _func: any = {};
-    _caller: any = {};
+    private _data: any = {};
+    private _func: any = {};
     _watch_array: any[] = []
     $coil(args?: coilConif) {
         return new coil(this._data, this._func, this._model, this, args)
@@ -46,7 +49,7 @@ class zcoil {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
                 _to_model = new Jumper(that._model, this, that._data).model
-                this._push_dictate(_to_model)
+                that._push_dictate(_to_model)
                 if (this._call) {
                     this._call(key, 'push')
                 }
@@ -106,11 +109,6 @@ class zcoil {
 
     private _after(key: any, _to_model: any) {
         this._dataTransToThis(_to_model)
-        if (this._caller[key] == null) {
-            this._caller[key] = 1
-        } else {
-            this._caller[key]++
-        }
         //console.log('after:' + key)
     };
 
@@ -161,5 +159,4 @@ class Jumper {
     };
 }
 
-
-export default zcoil;
+export default zcoil

@@ -17,8 +17,9 @@ export class watch{
             }
         }else{
             if(!isEqual(to,this._init_data)){
-                this._callback(this._init_data,to)
-                this._init_data = cloneDeep(to)
+                let deep_to = cloneDeep(to)
+                this._callback(this._init_data,deep_to)
+                this._init_data = deep_to
             }
         }
     }

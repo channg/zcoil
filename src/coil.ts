@@ -25,6 +25,9 @@ export class coil {
         let that = this
         this._zcoil = zcoil
         this._model = model
+        /**
+         * 初始化调用栈
+         */
         forIn(funcs, (value, key) => {
             this[key] = function (...args: any[]) {
                 that.pArray.push(() => {

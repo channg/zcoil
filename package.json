@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "serve": "webpack-dev-server --mode development --port 8088"
+    "serve": "webpack-dev-server --mode development --port 8088",
+    "test":"mocha"
   },
   "keywords": [
     "webpack"
@@ -19,6 +20,7 @@
     "css-loader": "^0.28.10",
     "less": "^3.0.1",
     "less-loader": "^4.0.6",
+    "mocha": "^5.2.0",
     "style-loader": "^0.20.2",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
