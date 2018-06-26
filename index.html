@@ -4,5 +4,45 @@
 </head>
 <body>
 <script src="./zcoil.js"></script>
+<script>
+  var z = new zcoil()
+
+  z.init({
+    data() {
+      return {
+        index: 0
+      }
+    },
+    fetch2() {
+      return Promise.resolve(2)
+    },
+    timeout() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(20)
+        }, 500)
+      })
+    },
+    addIndex() {
+      this.fetch2().then((data) => {
+        this.index += data
+      })
+    },
+    multiply() {
+      this.timeout().then((data) => {
+        this.index *= data
+      })
+    },
+    assignment() {
+      this.index = 200
+    }
+  })
+  z.$watch((from,to)=>{
+    console.log(from)
+    console.log(to)
+  })
+  z.index = 200
+    z.$commit()
+</script>
 </body>
 </html>

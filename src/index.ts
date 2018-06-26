@@ -7,7 +7,6 @@ import {watch} from './watch'
 class zcoil {
     static assign(...datas:any[]){
         return merge({},...datas)
-
     }
     [key: string]: any;
     private _data: any = {};
@@ -29,7 +28,12 @@ class zcoil {
     }
 
     $commit(){
-        this.$zcoil._dataTransToThis.call(this.$zcoil,this)
+        if(this.$zcoil){
+            this.$zcoil._dataTransToThis.call(this.$zcoil,this)
+        }else{
+            this._dataTransToThis.call(this,this)
+        }
+
     }
     _push_dictate(model:any){
         model.$commit = this.$commit
