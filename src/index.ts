@@ -1,41 +1,59 @@
-import {forIn, merge,has,cloneDeep} from 'lodash'
+import {cloneDeep, forIn, has, merge} from 'lodash'
 import {isPromise} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/CoilConfig'
 import {watch} from './watch'
-
+import scoil from  './scoil'
 class zcoil {
-    static assign(...datas:any[]){
-        return merge({},...datas)
-    }
+
+
     [key: string]: any;
     private _data: any = {};
     private _func: any = {};
     _watch_array: any[] = []
+
     $coil(args?: coilConif) {
         return new coil(this._data, this._func, this._model, this, args)
     };
+    static $assign(...datas: any[]) {
+        let _merge =  merge({}, ...datas)
+        debugger
+        let _merge_func = cloneDeep(_merge._func)
+        let _config:any = {
+            data(){
+                return cloneDeep(_merge._data)
+            }
+        }
+        forIn(_merge_func,(value:any,key:any)=>{
+            _config[key] = value
+        })
+        let _assign_obj = new zcoil()
+        _assign_obj.init(_config)
+        return _assign_obj
+
+
+    }
 
     $watch(callback?: Function): void;
-    $watch(expression?:String|Array<String>, callback?: Function):void;
-    $watch(expression?:any, callback?: Function) {
-        if(typeof expression==='function'){
+    $watch(expression?: String | Array<String>, callback?: Function): void;
+    $watch(expression?: any, callback?: Function) {
+        if (typeof expression === 'function') {
             this._watch_array.push(new watch(null, expression, cloneDeep(this._data)))
         }
-        else{
+        else {
             this._watch_array.push(new watch(expression, callback, cloneDeep(this._data)))
         }
     }
 
-    $commit(){
-        if(this.$zcoil){
-            this.$zcoil._dataTransToThis.call(this.$zcoil,this)
-        }else{
-            this._dataTransToThis.call(this,this)
+    $commit() {
+        if (this.$zcoil) {
+            this.$zcoil._dataTransToThis.call(this.$zcoil, this)
+        } else {
+            this._dataTransToThis.call(this, this)
         }
-
     }
-    _push_dictate(model:any){
+
+    _push_dictate(model: any) {
         model.$commit = this.$commit
     }
 
@@ -45,6 +63,7 @@ class zcoil {
      * @param func
      */
     init({data, ...func}: any) {
+        debugger
         this._model = {}
         this._data = data()
         this._func = func
@@ -52,8 +71,10 @@ class zcoil {
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
-                if(this._call){
-                    _to_model = new Jumper(that._model, this, that._data).model
+                if (this._call) {
+                    _to_model = new scoil(that._model, this, that._data).model
+                } else {
+                    _to_model.$zcoil = that
                 }
                 that._push_dictate(_to_model)
                 if (this._call) {
@@ -86,23 +107,19 @@ class zcoil {
                             })
                         })
                     } else {
-                        Promise.resolve().then(() => {
-                            that._dataTransToThis(_to_model)
-                            if (this._call) {
-                                this._call(key, 'pop')
-                            }
-                            that._after(key, _to_model)
-                        })
-                        return _mr
-                    }
-                } else {
-                    Promise.resolve().then(() => {
                         that._dataTransToThis(_to_model)
                         if (this._call) {
                             this._call(key, 'pop')
                         }
                         that._after(key, _to_model)
-                    })
+                        return _mr
+                    }
+                } else {
+                    that._dataTransToThis(_to_model)
+                    if (this._call) {
+                        this._call(key, 'pop')
+                    }
+                    that._after(key, _to_model)
                 }
             }
         })
@@ -123,16 +140,16 @@ class zcoil {
         //console.log('error:' + key)
     };
 
-    private _watch_each_call(to:any) {
+    private _watch_each_call(to: any) {
         if (this._watch_array.length > 0) {
-            this._watch_array.forEach((_watch)=>{
+            this._watch_array.forEach((_watch) => {
                 _watch._on_data_change(to)
             })
         }
     }
 
 
-    public  _dataTransToThis(_to_model?: any) {
+    private _dataTransToThis(_to_model?: any) {
         forIn(this._data, (value, key) => {
             if (!!_to_model) {
                 this._data[key] = this[key] = value = this._model[key] = _to_model[key]
@@ -147,21 +164,6 @@ class zcoil {
         if (this._watch_array.length > 0) {
             this._watch_each_call(this._data)
         }
-    };
-}
-
-class Jumper {
-    model: any = {};
-    constructor(_model: any, zcoil: any, data: any) {
-        forIn(_model, (value, key) => {
-            if (has(data, key)) {
-                this.model[key] = data[key]
-            } else {
-                this.model[key] = value
-            }
-        })
-        this.model['_call'] = zcoil._call
-        this.model.$zcoil = zcoil
     };
 }
 

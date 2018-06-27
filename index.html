@@ -5,49 +5,38 @@
 <body>
 <script src="./zcoil.js"></script>
 <script>
-  var z = new zcoil()
-
-  z.init({
-    data() {
-      return {
-        index: 0
+  var z3 = new zcoil()
+  z3.init({
+      data() {
+        return {
+          index: 2,
+          type:'last'
+        }
+      },
+      assignment() {
+        this.index = 200
       }
-    },
-    fetch2() {
-      return Promise.resolve(2)
-    },
-    timeout() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(20)
-        }, 500)
-      })
-    },
-    addIndex() {
-      this.fetch2().then((data) => {
-        this.index += data
-      })
-    },
-    multiply() {
-      this.timeout().then((data) => {
-        this.index *= data
-      })
-    },
-    assignment() {
-      this.index += 200
     }
-  })
-  z.$watch((from,to)=>{
-    console.log(from)
-    console.log(to)
-  })
-  z.$coil().addIndex().multiply().assignment().exec(function(){
-    console.log(z)
-  })
+  )
 
-  z.$coil().addIndex().multiply().assignment().exec(function(){
-    console.log(z)
-  })
+  var z4 = new zcoil()
+  z4.init({
+      data() {
+        return {
+          index: 4
+        }
+      },
+      assignment() {
+        this.index = 300
+      }
+    }
+  )
+
+  var zassign  = zcoil.$assign(z3,z4)
+  console.log(zassign)
+  zassign.assignment();
+  console.log(zassign.index)
+
 </script>
 </body>
 </html>

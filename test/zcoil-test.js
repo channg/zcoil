@@ -46,7 +46,69 @@ z2.init({
   }
 )
 
-describe('zcoil', () => {
+var z3 = new zcoil()
+z3.init({
+    data() {
+      return {
+        index: 2,
+        type:'last'
+      }
+    },
+    assignment() {
+      this.index = 200
+    }
+  }
+)
+
+var z4 = new zcoil()
+z4.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    assignment() {
+      this.index = 300
+    }
+  }
+)
+
+var zassign  = zcoil.$assign(z3,z4)
+
+var z5 = new zcoil()
+z5.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    settimeout() {
+      var that = this
+      setTimeout(function(){
+        z5.index = 100
+        that.$commit()
+      },200)
+    }
+  }
+)
+z5.$watch(function(from,to){
+})
+z5.settimeout()
+
+var z6 = new zcoil()
+z6.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    assignment() {
+      this.index = 300
+    }
+  }
+)
+
+describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('use zcoil', () => {
     assert.strictEqual(zcoil !== null, true);
   });
@@ -77,6 +139,25 @@ describe('zcoil', () => {
       assert.strictEqual(z.index, 4000);
       done()
     })
+  });
+  
+  it('zcoil.$assign()', () => {
+      assert.strictEqual(zassign.index, 4);
+      assert.strictEqual(zassign.type, 'last');
+  });
+  
+  it('zcoil.$assign().method()', () => {
+    zassign.assignment()
+    assert.strictEqual(zassign.index, 300);
+  });
+  
+  it('z.$watch() by $commit', (done) => {
+    z6.$watch((from, to) => {
+      assert.strictEqual(z6.index, 200);
+      done()
+    })
+    z6.index = 200
+    z6.$commit()
   });
 })
 

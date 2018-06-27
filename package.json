@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "cross-env webpack --mode production && mocha",
-    "serve": "webpack-dev-server --mode development --port 8088",
-    "test": "mocha"
+    "server": "webpack-dev-server --mode development --port 8088",
+    "serve":"cross-env npm run opn  && npm run server",
+    "test": "mocha",
+    "opn":"opn http://localhost:8088/"
   },
   "keywords": [
     "webpack"
   ],
-  "repository": "",
+  "repository": "https://github.com/channg/zcoil",
   "author": "channg",
   "license": "MIT",
   "devDependencies": {
@@ -22,6 +24,7 @@
     "less": "^3.0.1",
     "less-loader": "^4.0.6",
     "mocha": "^5.2.0",
+    "opn-cli": "^3.1.0",
     "style-loader": "^0.20.2",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",

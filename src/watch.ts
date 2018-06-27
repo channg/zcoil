@@ -26,7 +26,6 @@ export class watch{
 
     _expressionEquals(expression:any,to:any,from:any){
         return isEqual(get(to,expression),get(from,expression))
-
     }
     constructor(expression:any,callback:Function,_data:any){
         this._callback = callback
