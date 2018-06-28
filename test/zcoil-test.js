@@ -135,8 +135,11 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   
   
   it('z.$coil().addIndex().multiply().assignment().multiply()', (done) => {
-    z.$coil().addIndex().multiply().assignment().multiply().exec(() => {
+    z.$coil().addIndex().multiply().assignment().multiply().exec(function(data){
+      
       assert.strictEqual(z.index, 4000);
+      assert.strictEqual(data.index, 4000);
+      assert.strictEqual(this.index, 4000);
       done()
     })
   });
@@ -154,6 +157,8 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('z.$watch() by $commit', (done) => {
     z6.$watch((from, to) => {
       assert.strictEqual(z6.index, 200);
+      assert.strictEqual(from.index, 4);
+      assert.strictEqual(to.index, 200);
       done()
     })
     z6.index = 200

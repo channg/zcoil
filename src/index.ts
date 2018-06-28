@@ -63,7 +63,6 @@ class zcoil {
      * @param func
      */
     init({data, ...func}: any) {
-        debugger
         this._model = {}
         this._data = data()
         this._func = func

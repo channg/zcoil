@@ -82,7 +82,7 @@ export class coil {
                 if(!!this._error&&this._default_config.rollback){
                     this._zcoil._dataTransToThis(this._rollback_data_)
                 }
-                this._callback(this._model, this._error)
+                this._callback.call(this._zcoil,this._model, this._error)
                 this._error = null
                 this._call_stack = []
             }
