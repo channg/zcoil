@@ -1,4 +1,5 @@
-import {forIn, has} from 'lodash'
+import forIn = require('lodash/forIn')
+import has = require( 'lodash/has')
 export default class scoil {
     model: any = {};
     constructor(_model: any, zcoil: any, data: any) {

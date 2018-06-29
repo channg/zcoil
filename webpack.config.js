@@ -1,5 +1,5 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 module.exports = (env, argv) => {
   const config = {
     entry: {
@@ -18,8 +18,16 @@ module.exports = (env, argv) => {
         }]
       }, {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: ['lodash']
+            }
+          }, {
+            loader: 'ts-loader'
+          }],
+        exclude: /node_modules/,
       }
       ]
     },
@@ -30,14 +38,16 @@ module.exports = (env, argv) => {
       extensions: ['.tsx', '.ts', '.js']
     },
     output: {
-      globalObject:'this',
+      globalObject: 'this',
       libraryTarget: 'umd',
       library: "zcoil",
       filename: "[name].js",
       libraryExport: 'default'
-    }
+    },
+    plugins: [
+      new LodashModuleReplacementPlugin,
+    ]
   }
-  
   if (argv.mode === 'development') {
     config.devtool = 'inline-source-map'
   } else {

@@ -1,4 +1,5 @@
-import {assign, forIn} from 'lodash'
+import forIn =require('lodash/forIn')
+import assign = require('lodash/assign')
 import {coilConif} from './interface/CoilConfig'
 
 export class coil {

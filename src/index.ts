@@ -1,4 +1,7 @@
-import {assign, cloneDeep, forIn, merge} from 'lodash'
+import assign = require('lodash/assign');
+import cloneDeep =  require('lodash/cloneDeep');
+import forIn = require('lodash/forIn');
+import  merge =require('lodash/merge')
 import {getTimestamp, isPromise} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/coilConfig'
