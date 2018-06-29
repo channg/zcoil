@@ -1,7 +1,6 @@
 var zcoil = require('../dist/zcoil')
 const assert = require('assert');
 var z = new zcoil()
-
 z.init({
   data() {
     return {
@@ -108,6 +107,8 @@ z6.init({
   }
 )
 
+
+
 describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('use zcoil', () => {
     assert.strictEqual(zcoil !== null, true);
@@ -164,6 +165,7 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
     z6.index = 200
     z6.$commit()
   });
+  
 })
 
 

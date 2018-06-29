@@ -5,38 +5,6 @@
 <body>
 <script src="./zcoil.js"></script>
 <script>
-  var z3 = new zcoil()
-  z3.init({
-      data() {
-        return {
-          index: 2,
-          type:'last'
-        }
-      },
-      assignment() {
-        this.index = 200
-      }
-    }
-  )
-
-  var z4 = new zcoil()
-  z4.init({
-      data() {
-        return {
-          index: 4
-        }
-      },
-      assignment() {
-        this.index = 300
-      }
-    }
-  )
-
-  var zassign  = zcoil.$assign(z3,z4)
-  console.log(zassign)
-  zassign.assignment();
-  console.log(zassign.index)
-
 </script>
 </body>
 </html>

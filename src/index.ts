@@ -1,38 +1,50 @@
-import {cloneDeep, forIn, has, merge} from 'lodash'
-import {isPromise} from './utils'
+import {assign, cloneDeep, forIn, merge} from 'lodash'
+import {getTimestamp, isPromise} from './utils'
 import {coil} from './coil'
-import {coilConif} from './interface/CoilConfig'
+import {coilConif} from './interface/coilConfig'
+import {zcoilConif} from './interface/zcoilConig'
 import {watch} from './watch'
-import scoil from  './scoil'
-class zcoil {
+import scoil from './scoil'
+import {getData, serializeData} from "./serialize";
 
+class zcoil {
+    constructor(config?: zcoilConif) {
+        if (config) {
+            config = assign({}, zcoil._init_config, config)
+            this._config = config
+        }
+    }
 
     [key: string]: any;
-    private _data: any = {};
+    private _config: any = {}
+    private _data: any = null;
     private _func: any = {};
     _watch_array: any[] = []
 
-    $coil(args?: coilConif) {
-        return new coil(this._data, this._func, this._model, this, args)
-    };
+    static _init_config = {
+        localStorage: true,
+        deadline: 30 * 24 * 3600
+    }
+
     static $assign(...datas: any[]) {
-        let _merge =  merge({}, ...datas)
-        debugger
+        let _merge = merge({}, ...datas)
         let _merge_func = cloneDeep(_merge._func)
-        let _config:any = {
-            data(){
+        let _config: any = {
+            data() {
                 return cloneDeep(_merge._data)
             }
         }
-        forIn(_merge_func,(value:any,key:any)=>{
+        forIn(_merge_func, (value: any, key: any) => {
             _config[key] = value
         })
         let _assign_obj = new zcoil()
         _assign_obj.init(_config)
         return _assign_obj
-
-
     }
+
+    $coil(args?: coilConif) {
+        return new coil(this._data, this._func, this._model, this, args)
+    };
 
     $watch(callback?: Function): void;
     $watch(expression?: String | Array<String>, callback?: Function): void;
@@ -64,12 +76,14 @@ class zcoil {
      */
     init({data, ...func}: any) {
         this._model = {}
+        this._serialize()
         this._data = data()
         this._func = func
         let that = this
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
+
                 if (this._call) {
                     _to_model = new scoil(that._model, this, that._data).model
                 } else {
@@ -123,7 +137,29 @@ class zcoil {
             }
         })
         this._dataTransToThis()
+
     };
+
+    /**
+     * 反序列化数据方法
+     */
+    $deserialize() {
+        return new Promise((resolve) => {
+            if (this._config && this._config.name && this._config.localStorage) {
+
+                getData(this._config.name).then((d) => {
+                    if (d) {
+                        this._data = d
+                        this._dataTransToThis(d)
+                    }
+                    resolve(this)
+                })
+            } else {
+                resolve(this)
+            }
+        })
+
+    }
 
     private _before(key: String) {
         //console.log('before:' + key)
@@ -147,6 +183,20 @@ class zcoil {
         }
     }
 
+    private _serialize() {
+        if (this._config && this._config.name && this._config.localStorage) {
+            this.$watch((from: any, to: any) => {
+                if (from) {
+                    serializeData(this._config.name, this._data).catch(() => {
+                        throw new Error('new zcoil(); serialize error');
+                    })
+                    serializeData(`_${this._config.name}_deadline`, getTimestamp() + this._config.deadline).catch(() => {
+                        throw new Error('new zcoil(); serialize error');
+                    })
+                }
+            })
+        }
+    }
 
     private _dataTransToThis(_to_model?: any) {
         forIn(this._data, (value, key) => {

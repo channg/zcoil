@@ -7,9 +7,9 @@
     "dev": "webpack --mode development",
     "build": "cross-env webpack --mode production && mocha",
     "server": "webpack-dev-server --mode development --port 8088",
-    "serve":"cross-env npm run opn  && npm run server",
+    "serve": "cross-env npm run opn  && npm run server",
     "test": "mocha",
-    "opn":"opn http://localhost:8088/"
+    "opn": "opn http://localhost:8088/"
   },
   "keywords": [
     "webpack"
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/jquery": "^3.3.0",
     "cross-env": "^5.2.0",
+    "@types/lodash": "^4.14.109",
     "css-loader": "^0.28.10",
     "less": "^3.0.1",
     "less-loader": "^4.0.6",
@@ -34,7 +35,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.109",
+    "localforage": "^1.7.2",
     "lodash": "^4.17.10"
   }
 }

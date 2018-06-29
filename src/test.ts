@@ -1,12 +1,14 @@
 import zcoil from './index'
 
-let z = new zcoil()
+let z = new zcoil({
+    name: 'kafka', localStorage: true
+})
 z.init({
     data() {
         return {
             len: 2,
             text: "",
-            msg:{aa:11}
+            msg: {aa: 11}
         }
     },
     fetch() {
@@ -20,7 +22,7 @@ z.init({
         })
     },
     j20() {
-        this.msg.aa +=200
+        this.msg.aa += 200
     },
     x2() {
         this.fetch().then((id: any) => {
@@ -32,22 +34,21 @@ z.init({
             this.msg.aa = 200
         })
     },
-    testCommit(){
-        setTimeout(()=>{
+    testCommit() {
+        setTimeout(() => {
             this.len = 200
             this.$commit()
-        },1000)
+        }, 1000)
     }
 })
 
-z.$coil().d20().x2().j20().exec(function(data:any){
-})
 
-z.$watch(function(from:any,to:any){
-    console.log(from)
-    console.log(to)
-})
 
+z.$deserialize().then((data:any)=>{
+    debugger
+    z.j20()
+    console.log(z)
+})
 
 
 
