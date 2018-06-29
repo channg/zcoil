@@ -15,20 +15,15 @@ z6.init({
     }
   }
 )
-
-
-
-
-
+z6.assignment()
 describe('zcoil serialize', function() {
   it('The value is correct when not serialized.', function() {
-    expect(z6.index).to.be.equal(4);
+    expect(z6.index).to.be.equal(300);
   });
   it('Check the value after serialization(Will succeed on the second).', function(done) {
     z6.$deserialize().then((data)=>{
       expect(z6.index).to.be.equal(300);
       expect(data.index).to.be.equal(300);
-      z6.assignment()
       done()
     })
   });

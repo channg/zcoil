@@ -5,6 +5,24 @@
 <body>
 <script src="./zcoil.js"></script>
 <script>
+  var z6 = new zcoil({
+    name:"test0123",
+    localStorage:true
+  })
+  z6.init({
+      data() {
+        return {
+          index: 4
+        }
+      },
+      assignment() {
+        this.index = 300
+      }
+    }
+  );
+  z6.assignment()
+
+
 </script>
 </body>
 </html>

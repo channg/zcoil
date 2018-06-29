@@ -45,7 +45,6 @@ z.init({
 
 
 z.$deserialize().then((data:any)=>{
-    debugger
     z.j20()
     console.log(z)
 })

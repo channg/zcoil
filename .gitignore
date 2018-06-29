@@ -2,4 +2,3 @@ node_modules/
 README.md.bak
 .idea/
 package-lock.json
-test-storage
