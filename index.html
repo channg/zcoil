@@ -4,28 +4,35 @@
 </head>
 <body>
 <script src="./zcoil.js"></script>
-<script>
-  var z6 = new zcoil({
-    name:"test0123",
-    localStorage:true
-  })
-  z6.init({
-      data() {
-        return {
-          index: 4
-        }
-      },
-      assignment() {
-        this.index = 300
-      }
-    }
-  );
-  z6.$watch(function(from,to){
-  })
-  z6.$coil().$deserialize().exec(function(){
-      z6.index = 300
-      z6.$commit()
-  })
+<script >
+    var z6 = new zcoil({
+        name: "test0123",
+        localStorage: true,
+        cover: false
+    });
+    z6.init({
+                data() {
+                    return {
+                        index: 4
+                    }
+                },
+                assignment() {
+                    this.index = 300
+                },
+                de(){
+                    this.$deserialize().then((data) => {
+                        this.index = data.index+100
+                        debugger
+                    })
+                }
+            }
+    );
+    z6.$watch(function (from, to) {
+        debugger
+    })
+    z6.$coil().de().exec(function () {
+        debugger
+    })
 
 
 </script>

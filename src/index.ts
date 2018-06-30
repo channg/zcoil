@@ -82,17 +82,16 @@ class zcoil {
         this._model = {}
         this._serialize()
         this._data = data()
+        func.$deserialize = this.$deserialize
         this._func = func
         let that = this
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
                 let _to_model: any = that._model
-
                 if (this._call) {
                     _to_model = new scoil(that._model, this, that._data).model
-                } else {
-                    _to_model.$zcoil = that
                 }
+                _to_model.$zcoil = that
                 that._push_dictate(_to_model)
                 if (this._call) {
                     this._call(key, 'push')
@@ -148,17 +147,21 @@ class zcoil {
      * 反序列化数据方法
      */
     $deserialize() {
+        let that = this.$zcoil||this
         return new Promise((resolve) => {
-            if (this._config && this._config.name && this._config.localStorage) {
-                getData(this._config.name).then((d) => {
-                    if (d&&this._config.cover) {
-                        this._data = d
-                        this._dataTransToThis(d)
+            if (that._config && that._config.name && that._config.localStorage) {
+                getData(that._config.name).then((d) => {
+                    if (d&&that._config.cover) {
+                        that._data = d
+                        that._dataTransToThis(d)
+                        resolve(that._data)
+                    }else{
+                        resolve(d)
                     }
-                    resolve(this)
+
                 })
             } else {
-                resolve(this)
+                resolve(that._data)
             }
         })
 
