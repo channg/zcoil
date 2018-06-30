@@ -1,5 +1,6 @@
-export class zcoilConif{
-    name?:String
-    localStorage?:boolean
-    deadline?:number
+export interface zcoilConif{
+    name?:String;
+    localStorage?:boolean;
+    deadline?:number;
+    cover?:boolean;
 }

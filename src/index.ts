@@ -26,7 +26,8 @@ class zcoil {
 
     static _init_config = {
         localStorage: true,
-        deadline: 30 * 24 * 3600
+        deadline: 30 * 24 * 3600,
+        cover:true
     }
 
     static $assign(...datas: any[]) {
@@ -149,9 +150,8 @@ class zcoil {
     $deserialize() {
         return new Promise((resolve) => {
             if (this._config && this._config.name && this._config.localStorage) {
-
                 getData(this._config.name).then((d) => {
-                    if (d) {
+                    if (d&&this._config.cover) {
                         this._data = d
                         this._dataTransToThis(d)
                     }

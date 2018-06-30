@@ -17,6 +17,7 @@ export class coil {
     }
     _rollback_data_: any = {}
     constructor(data: any, funcs: any, model: any, zcoil: any, config?: coilConif) {
+
         assign(this._default_config, config)
         // 注意 rollback 的数据 将为 $coil 被调用时的数据，如果调用过程中有并行的数据改变，rollback不会记录。
         if (this._default_config.rollback) {
@@ -42,6 +43,7 @@ export class coil {
                 return that
             }
         })
+        this._add_deserialize(zcoil)
     };
 
     exec(_callback?: Function) {
@@ -49,6 +51,17 @@ export class coil {
         this._next()
     };
 
+    _add_deserialize(zcoil:any){
+        this.$deserialize = (...args:any[])=>{
+            this._call_stack.push({push: 'deserialize'})
+            this._ca('deserialize', 'push')
+            zcoil.$deserialize(...args).then((data:any)=>{
+                this._call_stack.push({pop: 'deserialize'})
+                this._ca('deserialize', 'pop')
+            })
+            return this
+        }
+    }
     _next() {
         if (this.pArray.length > 0) {
             this.pArray.shift()()
