@@ -155,8 +155,10 @@ class zcoil {
                         that._data = d
                         that._dataTransToThis(d)
                         resolve(that._data)
-                    }else{
+                    }else if(d){
                         resolve(d)
+                    }else{
+                        resolve(that._data)
                     }
 
                 })
