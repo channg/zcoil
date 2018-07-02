@@ -1,5 +1,8 @@
 var expect = chai.expect;
 
+
+
+
 var z6 = new zcoil({
   name:"test01",
   localStorage:true
@@ -21,10 +24,14 @@ describe('zcoil serialize', function() {
     expect(z6.index).to.be.equal(300);
   });
   it('Check the value after serialization(Will succeed on the second).', function(done) {
-    z6.$deserialize().then((data)=>{
-      expect(z6.index).to.be.equal(300);
-      expect(data.index).to.be.equal(300);
-      done()
+    localforage.setItem('test01',{index:400}).then(()=>{
+      localforage.setItem('_test01_deadline',new Date().getTime()+1000000).then(()=>{
+        z6.$deserialize().then((data)=>{
+          expect(z6.index).to.be.equal(400);
+          expect(data.index).to.be.equal(400);
+          done()
+        })
+      })
     })
   });
   
