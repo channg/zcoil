@@ -47,7 +47,7 @@ class zcoil {
     }
 
     $coil(args?: coilConif) {
-        return new coil(this._data, this._func, this._model, this, args)
+        return new coil(this, args)
     };
 
     $watch(callback?: Function): void;

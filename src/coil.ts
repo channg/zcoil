@@ -16,21 +16,21 @@ export class coil {
         errorContinue: true
     }
     _rollback_data_: any = {}
-    constructor(data: any, funcs: any, model: any, zcoil: any, config?: coilConif) {
+    constructor(zcoil: any, config?: coilConif) {
 
         assign(this._default_config, config)
         // 注意 rollback 的数据 将为 $coil 被调用时的数据，如果调用过程中有并行的数据改变，rollback不会记录。
         if (this._default_config.rollback) {
-            this._save_data(data)
+            this._save_data(zcoil._data)
         }
 
         let that = this
         this._zcoil = zcoil
-        this._model = model
+        this._model = zcoil._model
         /**
          * 初始化调用栈
          */
-        forIn(funcs, (value, key) => {
+        forIn(zcoil._func, (value, key) => {
             this[key] = function (...args: any[]) {
                 that.pArray.push(() => {
                     zcoil[key].call({
@@ -49,6 +49,7 @@ export class coil {
     exec(_callback?: Function) {
         this._callback = _callback
         this._next()
+        return new coil(this._zcoil, this._default_config)
     };
 
     _add_deserialize(zcoil:any){
