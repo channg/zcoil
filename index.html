@@ -4,39 +4,6 @@
 </head>
 <body>
 <script src="./zcoil.js"></script>
-<script >
-    var z6 = new zcoil({
-        name: "test0123",
-        localStorage: true,
-        cover: false
-    });
-    z6.init({
-                data() {
-                    return {
-                        index: 4
-                    }
-                },
-                assignment() {
-                    this.index += 3
-                },
-                de(){
-                    this.$deserialize().then((data) => {
-                        this.index = data.index+100
-                        debugger
-                    })
-                }
-            }
-    );
-    z6.$watch(function (from, to) {
-        debugger
-    })
-    z6.$coil().assignment().exec(function () {
-        debugger
-    }).assignment().exec(function () {
-      debugger
-    })
-
-
-</script>
+<script src="./test.js"></script>
 </body>
 </html>
