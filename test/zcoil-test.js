@@ -107,7 +107,58 @@ z6.init({
   }
 )
 
+var z7 = new zcoil({});
+z7.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    luck(){
+      return new Promise((resolve)=>{
+        setTimeout(()=>{
+          resolve(8)
+        },800)
+      })
+    },
+    some(){
+      this.luck().then((da)=>{
+        this.index+=da
+      })
+    },
+    jj(){
+      this.luck().then((da)=>{
+        this.index*=da
+      })
+    }
+  }
+);
 
+var z8 = new zcoil({});
+z8.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    reject(){
+      return Promise.reject()
+    },
+    resolve(){
+      return Promise.resolve(2)
+    },
+    aa(){
+      this.resolve().then((data)=>{
+        this.index+=data
+      })
+    },
+    bb(){
+      this.reject().then((data)=>{
+        this.index+=data
+      })
+    }
+  }
+);
 
 describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('use zcoil', () => {
@@ -137,7 +188,6 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   
   it('z.$coil().addIndex().multiply().assignment().multiply()', (done) => {
     z.$coil().addIndex().multiply().assignment().multiply().exec(function(data){
-      
       assert.strictEqual(z.index, 4000);
       assert.strictEqual(data.index, 4000);
       assert.strictEqual(this.index, 4000);
@@ -164,6 +214,23 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
     })
     z6.index = 200
     z6.$commit()
+  });
+  var some = null
+  it('zcoil.$coil two exec', (done) => {
+     some = z7.$coil().some().exec(function () {
+    
+    }).jj().exec(function (data) {
+      assert.strictEqual(data.index, 96);
+      assert.strictEqual(z7.index, 96);
+      done()
+    })
+  });
+  it('zcoil.$coil next exec', (done) => {
+    some.some().exec(function(data){
+      assert.strictEqual(z7.index, 104);
+      assert.strictEqual(data.index, 104);
+      done()
+    })
   });
   
 })

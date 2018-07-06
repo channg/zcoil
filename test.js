@@ -1,38 +1,31 @@
-var z6 = new zcoil({
-  name: "test0123",
-  localStorage: true,
-  cover: false
-});
-z6.init({
+var z8 = new zcoil({});
+z8.init({
     data() {
       return {
         index: 4
       }
     },
-    luck(){
-      return new Promise((resolve)=>{
-        setTimeout(()=>{
-          resolve(8)
-        },800)
+    reject(){
+      return Promise.reject()
+    },
+    resolve(){
+      return Promise.resolve(2)
+    },
+    aa(){
+      this.resolve().then((data)=>{
+        this.index+=data
       })
     },
-    some(){
-      this.luck().then((da)=>{
-        this.index+=da
-      })
-    },
-    jj(){
-      this.luck().then((da)=>{
-        this.index*=da
+    bb(){
+      this.reject().then((data)=>{
+        this.index+=data
       })
     }
   }
 );
-z6.$watch(function (from, to) {
+
+z8.$coil().aa().exec(function(data){
   debugger
-})
-z6.$coil().some().exec(function () {
-  debugger
-}).jj().exec(function () {
+}).bb().exec(function (data,error) {
   debugger
 })
