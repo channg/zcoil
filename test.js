@@ -19,12 +19,14 @@ z8.init({
     bb(){
       this.reject().then((data)=>{
         this.index+=data
+      }).catch(()=>{
+        //donothing
       })
     }
   }
 );
 
-z8.$coil().aa().exec(function(data){
+z8.$coil({rollback:true,saveWithExec:false}).aa().exec(function(data){
   debugger
 }).bb().exec(function (data,error) {
   debugger

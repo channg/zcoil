@@ -155,10 +155,41 @@ z8.init({
     bb(){
       this.reject().then((data)=>{
         this.index+=data
+      }).catch(()=>{
+        //donothing
       })
     }
   }
 );
+
+var z9 = new zcoil({});
+z9.init({
+    data() {
+      return {
+        index: 4
+      }
+    },
+    reject(){
+      return Promise.reject()
+    },
+    resolve(){
+      return Promise.resolve(2)
+    },
+    aa(){
+      this.resolve().then((data)=>{
+        this.index+=data
+      })
+    },
+    bb(){
+      this.reject().then((data)=>{
+        this.index+=data
+      }).catch(()=>{
+        //donothing
+      })
+    }
+  }
+);
+
 
 describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('use zcoil', () => {
@@ -170,7 +201,7 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('init z.index', () => {
     assert.strictEqual(z.index, 0);
   });
-  
+
   it('z.fetch()', (done) => {
     z.fetch2().then((data) => {
       assert.strictEqual(data, 2);
@@ -184,8 +215,8 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
     })
     z2.assignment()
   });
-  
-  
+
+
   it('z.$coil().addIndex().multiply().assignment().multiply()', (done) => {
     z.$coil().addIndex().multiply().assignment().multiply().exec(function(data){
       assert.strictEqual(z.index, 4000);
@@ -194,17 +225,17 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
       done()
     })
   });
-  
+
   it('zcoil.$assign()', () => {
       assert.strictEqual(zassign.index, 4);
       assert.strictEqual(zassign.type, 'last');
   });
-  
+
   it('zcoil.$assign().method()', () => {
     zassign.assignment()
     assert.strictEqual(zassign.index, 300);
   });
-  
+
   it('z.$watch() by $commit', (done) => {
     z6.$watch((from, to) => {
       assert.strictEqual(z6.index, 200);
@@ -218,7 +249,7 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   var some = null
   it('zcoil.$coil two exec', (done) => {
      some = z7.$coil().some().exec(function () {
-    
+
     }).jj().exec(function (data) {
       assert.strictEqual(data.index, 96);
       assert.strictEqual(z7.index, 96);
@@ -232,7 +263,27 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
       done()
     })
   });
-  
+
+
+  it('zcoil more one exec() use saveWithExec = false and rollback = true.', (done) => {
+    z8.$coil({rollback:true,saveWithExec:false}).aa().exec(function(data){
+      debugger
+    }).bb().exec(function (data,error) {
+      assert.strictEqual(z8.index, 4);
+      assert.strictEqual(data.index, 4);
+      done()
+    })
+  });
+  it('zcoil more one exec() use rollback = true  but saveWithExec = true.', (done) => {
+    z9.$coil({rollback:true,saveWithExec:true}).aa().exec(function(data){
+      debugger
+    }).bb().exec(function (data,error) {
+      assert.strictEqual(z9.index, 6);
+      assert.strictEqual(data.index, 6);
+      done()
+    })
+  });
+
 })
 
 

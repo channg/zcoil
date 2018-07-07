@@ -55,7 +55,6 @@ export class coil {
     };
 
     exec(_callback?: Function) {
-        debugger
         let nCoil = new coil(this._zcoil, this._default_config, true)
         this._ncoil = nCoil
         this._callback = _callback
@@ -118,7 +117,6 @@ export class coil {
                 this._error = null
                 this._call_stack = []
             }
-            debugger
             if (this._ncoil.pArray.length > 0) {
                 if (this._ncoil._default_config.rollback && this._ncoil._default_config.saveWithExec) {
                     this._ncoil._save_data(this._zcoil._data)
