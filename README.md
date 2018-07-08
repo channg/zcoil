@@ -6,12 +6,17 @@
   <a href="https://github.com/channg/zcoil/blob/master/LICENSE"><img alt="license" src="https://img.shields.io/github/license/channg/zcoil.svg?style=flat-square"></a>
 </p>
 
-<h3>介绍</h3>
 
->zcoil是为提供<strong>更便捷、更优雅</strong>的数据操作的model层框架，使用它，你会发现，数据操作将变得如此轻松。
+>zcoil是为提供<strong>更便捷、更优雅</strong>的数据操作的model层框架。
 
+<p>使用npm 引用zcoil</p>
+
+```  
+npm i zcoil
+```
 <h3>序章</h3>
 <p>打开通往新世界的大门</p>
+
 
 
 ```javascript
