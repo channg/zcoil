@@ -8,8 +8,10 @@
     "build": "cross-env webpack --mode production && mocha",
     "server": "webpack-dev-server --mode development --port 8088",
     "serve": "cross-env npm run opn  && npm run server",
-    "test": "mocha",
-    "opn": "opn http://localhost:8088/"
+    "testnode": "mocha",
+    "test":"cross-env npm run testnode && npm run teststorage",
+    "opn": "opn http://localhost:8088/",
+    "teststorage":"mocha-chrome ./test-storage/index.html"
   },
   "keywords": [
     "webpack"
@@ -28,6 +30,7 @@
     "less-loader": "^4.0.6",
     "lodash-webpack-plugin": "^0.11.5",
     "mocha": "^5.2.0",
+    "mocha-chrome": "^1.1.0",
     "opn-cli": "^3.1.0",
     "style-loader": "^0.20.2",
     "ts-loader": "^4.0.1",
