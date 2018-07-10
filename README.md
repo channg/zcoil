@@ -7,18 +7,10 @@
 </p>
 
 
->zcoil是为提供<strong>更便捷、更优雅</strong>的数据操作的model层框架。
-<h3>序章</h3>
-<p>使用npm 引用zcoil</p>
+> `Zcoil` is a model layer framework for more convenient and elegant data manipulation
+<h3>use</h3>
+<p>Now the introduction of</p>
 
 ```  
 npm i zcoil
-```
-<h3>壹</h3>
-<p>打开通往新世界的大门</p>
-
-
-
-```javascript
-let z = new zcoil()
 ```
