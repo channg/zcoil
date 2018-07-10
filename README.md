@@ -74,7 +74,7 @@ z.$watch((from,to)=>{
 
 <h3>test it online</h3>
 
-**try it in**[ jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/4/)
+try it in[ jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/11/)
 
 
 <h3>document</h3>
