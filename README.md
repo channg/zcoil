@@ -9,7 +9,7 @@
 
 > `Zcoil` is a model layer framework for more convenient and elegant data manipulation
 <h3>use</h3>
-<p>Now the introduction of</p>
+<p>install zcoil with npm</p>
 
 ```  
 npm i zcoil
