@@ -11,7 +11,8 @@
     "testnode": "mocha",
     "test":"cross-env npm run testnode && npm run teststorage",
     "opn": "opn http://localhost:8088/",
-    "teststorage":"mocha-chrome ./test-storage/index.html"
+    "teststorage":"mocha-chrome ./test-storage/index.html",
+    "doc":"docsify serve ./docs"
   },
   "keywords": [
     "webpack"

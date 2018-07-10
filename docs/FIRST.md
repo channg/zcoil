@@ -6,14 +6,14 @@
 ```
 import zcoil from 'zcoil'
 ```
-or
+`or`
 
 ```
 var zocil = require('zocil')
 ```
-or
+`or`
 
-直接引用dist目录下的 zcoil.js文件
+**直接引用dist目录下的 zcoil.js文件**
 
 ## 初始化
 
