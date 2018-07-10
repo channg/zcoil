@@ -14,3 +14,7 @@
 ```  
 npm i zcoil
 ```
+
+<h3>document</h3>
+> Currently only Chinese documents are available
+[docs](https://channg.github.io/zcoil/)
