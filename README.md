@@ -16,7 +16,7 @@ npm i zcoil
 ```
 <h3>easy to use in Hello world</h3>
 
-`Instantiated object`
+**Instantiated object**
 
 ```javascript
 var z = new zcoil()
@@ -48,7 +48,7 @@ z.init({
   }
 })
 ```
-**Magical method call process with **`$coil()`
+**Magical method call process with**`$coil()`
 
 ```javascript
 var hl = z.$coil().say("Thank your star this project")
@@ -74,7 +74,7 @@ z.$watch((from,to)=>{
 
 <h3>test it online</h3>
 
-** try it in **[jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/4/)
+**try it in**[jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/4/)
 
 
 <h3>document</h3>
