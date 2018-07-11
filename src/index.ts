@@ -1,7 +1,7 @@
 import assign = require('lodash/assign');
 import cloneDeep =  require('lodash/cloneDeep');
 import forIn = require('lodash/forIn');
-import  merge =require('lodash/merge')
+import  merge =require('lodash/merge');
 import {getTimestamp, isPromise} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/coilConfig'
@@ -26,8 +26,8 @@ class zcoil {
 
     static _init_config = {
         localStorage: true,
-        deadline: 30 * 24 * 3600,
-        cover:true
+        deadline: 30 * 24 * 3600 ,
+        cover: true
     }
 
     static $assign(...datas: any[]) {
@@ -147,17 +147,17 @@ class zcoil {
      * 反序列化数据方法
      */
     $deserialize() {
-        let that = this.$zcoil||this
+        let that = this.$zcoil || this
         return new Promise((resolve) => {
             if (that._config && that._config.name && that._config.localStorage) {
                 getData(that._config.name).then((d) => {
-                    if (d&&that._config.cover) {
+                    if (d && that._config.cover) {
                         that._data = d
                         that._dataTransToThis(d)
                         resolve(that._data)
-                    }else if(d){
+                    } else if (d) {
                         resolve(d)
-                    }else{
+                    } else {
                         resolve(that._data)
                     }
 
@@ -198,7 +198,7 @@ class zcoil {
                     serializeData(this._config.name, this._data).catch(() => {
                         throw new Error('new zcoil(); serialize error');
                     })
-                    serializeData(`_${this._config.name}_deadline`, getTimestamp() + this._config.deadline).catch(() => {
+                    serializeData(`_${this._config.name}_deadline`, getTimestamp() + this._config.deadline * 1000).catch(() => {
                         throw new Error('new zcoil(); serialize error');
                     })
                 }
