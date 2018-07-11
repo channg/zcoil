@@ -6,3 +6,5 @@
 * **梦回吹角连营**
     * [春分](SPRING.md)
     * [夏至](SUMMER.md)
+    * [秋分](AUTUMN.md)
+    * [冬至](WINTER.md)
