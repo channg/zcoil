@@ -3,6 +3,4 @@ README.md.bak
 .idea/
 package-lock.json
 yarn-error.log
-index.html
-test.js
 src/test.ts
