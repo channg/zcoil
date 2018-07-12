@@ -15,6 +15,7 @@ class zcoil {
         if (config) {
             config = assign({}, zcoil._init_config, config)
             this._config = config
+            this.$mixin = config.mixin
         }
     }
 
@@ -23,11 +24,13 @@ class zcoil {
     private _data: any = null;
     private _func: any = {};
     _watch_array: any[] = []
+    $mixin:any = {}
 
     static _init_config = {
         localStorage: true,
         deadline: 30 * 24 * 3600 ,
-        cover: true
+        cover: true,
+        mixin:{}
     }
 
     static $assign(...datas: any[]) {
@@ -81,12 +84,17 @@ class zcoil {
     init({data, ...func}: any) {
         this._model = {}
         this._serialize()
-        this._data = data()
+        if(data){
+            this._data = data()
+        }else{
+            this._data = {}
+        }
         func.$deserialize = this.$deserialize
         this._func = func
         let that = this
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
+                debugger
                 let _to_model: any = that._model
                 if (this._call) {
                     _to_model = new scoil(that._model, this, that._data).model
@@ -98,6 +106,7 @@ class zcoil {
                 }
                 that._before(key)
                 that._dataTransToThis(_to_model)
+                _to_model.$mixin = that._config.mixin
                 let _mr = value.apply(_to_model, arg)
                 if (_mr) {
                     if (isPromise(_mr)) {

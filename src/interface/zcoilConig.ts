@@ -3,4 +3,5 @@ export interface zcoilConif{
     localStorage?:boolean;
     deadline?:number;
     cover?:boolean;
+    mixin?:any;
 }
