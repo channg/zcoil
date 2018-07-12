@@ -94,7 +94,6 @@ class zcoil {
         let that = this
         forIn(func, (value, key) => {
             this[key] = this._model[key] = function (...arg: any[]) {
-                debugger
                 let _to_model: any = that._model
                 if (this._call) {
                     _to_model = new scoil(that._model, this, that._data).model

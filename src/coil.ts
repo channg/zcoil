@@ -88,7 +88,6 @@ export class coil {
     };
 
     _ca(key: any, type: String) {
-        debugger
         if (type === 'push') {
             ++this._call_index
         } else if (type === 'pop' || (this._default_config.errorContinue && type === 'err')) {
