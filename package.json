@@ -9,10 +9,10 @@
     "server": "webpack-dev-server --mode development --port 8088",
     "serve": "cross-env npm run opn  && npm run server",
     "testnode": "mocha",
-    "test":"cross-env npm run testnode && npm run teststorage",
+    "test": "cross-env npm run testnode && npm run teststorage",
     "opn": "opn http://localhost:8088/",
-    "teststorage":"mocha-chrome ./test-storage/index.html",
-    "doc":"docsify serve ./docs"
+    "teststorage": "mocha-chrome ./test-storage/index.html",
+    "doc": "docsify serve ./docs"
   },
   "keywords": [
     "webpack"
@@ -25,6 +25,7 @@
     "@types/lodash": "^4.14.109",
     "babel-loader": "^7.1.4",
     "babel-plugin-lodash": "^3.3.4",
+    "babel-preset-es2015": "^6.24.1",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.10",
     "less": "^3.0.1",

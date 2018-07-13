@@ -113,7 +113,7 @@ class zcoil {
                             const _calls = this._call
                             _mr.then((datas: any) => {
                                 reserve(datas)
-                                Promise.resolve(this).then((data) => {
+                                Promise.resolve().then(() => {
                                     that._after(key, _to_model)
                                     that._dataTransToThis(this)
                                     if (_calls) {
@@ -168,7 +168,6 @@ class zcoil {
                     } else {
                         resolve(that._data)
                     }
-
                 })
             } else {
                 resolve(that._data)

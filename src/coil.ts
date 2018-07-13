@@ -40,7 +40,6 @@ export class coil {
          */
         forIn(zcoil._func, (value, key) => {
             this[key] = function (...args: any[]) {
-
                 that.pArray.push(() => {
                     zcoil[key].call({
                         _call: (key: any, type: any) => {
