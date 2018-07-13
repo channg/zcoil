@@ -15,7 +15,7 @@ var vm = new Vue({
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(param)
-          }, 1000)
+          }, 200)
         })
       },
       

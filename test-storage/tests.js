@@ -34,6 +34,53 @@ describe('zcoil serialize', function() {
       })
     })
   });
+  it('Test zcoil in vue with $mixin.', function(done) {
+    var vm = new Vue({
+      data() {
+        return {
+          z: {},
+          coil: {},
+          message: "hello world ",
+        }
+      },
+      created() {
+        this.z = new zcoil({
+          mixin:this
+        })
+        this.z.init({
+          asyncGetSaySomething(param) {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve(param)
+              }, 200)
+            })
+          },
+          say(param) {
+            this.asyncGetSaySomething(param).then((say) => {
+              this.$mixin.message += "," + say
+            })
+          },
+          endToSay() {
+            this.$mixin.message += ",come on "
+          }
+        })
+      },
+      methods: {
+        dosome() {
+          this.coil = this.z.$coil().say("lll")
+          this.coil = this.coil.endToSay()
+          this.coil = this.coil.say("It works really well")
+          this.coil = this.coil.exec((data)=>{
+            expect(data.$mixin.message).to.be.equal('hello world ,lll,come on ,It works really well');
+            expect(this.message).to.be.equal('hello world ,lll,come on ,It works really well');
+            done()
+          })
+        }
+      }
+    }).$mount("#vm")
+    vm.dosome()
+  });
   
 });
+
 
