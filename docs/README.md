@@ -21,3 +21,4 @@ JavaScript 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/E
 ```
 npm install zcoil
 ```
+## [ -> 入门 <-](FIRST.md)
