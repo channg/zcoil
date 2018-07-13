@@ -53,17 +53,17 @@
 </head>
 <body>
 <div id="vm">
-    <h3>zcoil  <a href="https://github.com/channg/zcoil" onclick="ga('send', 'click', 'toGithub')">github</a>  <a href="https://channg.github.io/zcoil/" onclick="ga('send', 'click', 'todocument')"> document</a></h3><h4>The asynchronous method terminates the solution, using queues</h4>
+    <h3>zcoil  <a href="https://github.com/channg/zcoil" onclick="ga('send', 'event','click', 'toGithub')">github</a>  <a href="https://channg.github.io/zcoil/" onclick="ga('send','event', 'click', 'todocument')"> document</a></h3><h4>The asynchronous method terminates the solution, using queues</h4>
     <div class="all-time" v-text="'all time'+all +'ms'"></div>
     <div class="some" :style="item.color"  v-for="item in message"></div>
     <div class="button-list">
-        <div class="button" @click="dosome(100)" onclick="ga('send', 'click', 'do100')">100</div>
-        <div class="button" @click="dosome(200)" onclick="ga('send', 'click', 'do200')">200</div>
-        <div class="button" @click="dosome(300)" onclick="ga('send', 'click', 'do300')">300</div>
-        <div class="button" @click="dosome(1000)"onclick="ga('send', 'click', 'do1000')">1000</div>
-        <div class="button" @click="dosome(2000)"onclick="ga('send', 'click', 'do2000')">2000</div>
-        <div class="button" @click="dosome(3000)"onclick="ga('send', 'click', 'do3000')">3000</div>
-        <div class="button" @click="dosome(5000)"onclick="ga('send', 'click', 'do5000')">5000</div>
+        <div class="button" @click="dosome(100)" onclick="ga('send', 'event','click', 'do100')">100</div>
+        <div class="button" @click="dosome(200)" onclick="ga('send', 'event','click', 'do200')">200</div>
+        <div class="button" @click="dosome(300)" onclick="ga('send', 'event','click', 'do300')">300</div>
+        <div class="button" @click="dosome(1000)"onclick="ga('send', 'event','click', 'do1000')">1000</div>
+        <div class="button" @click="dosome(2000)"onclick="ga('send', 'event','click', 'do2000')">2000</div>
+        <div class="button" @click="dosome(3000)"onclick="ga('send', 'event','click', 'do3000')">3000</div>
+        <div class="button" @click="dosome(5000)"onclick="ga('send', 'event','click', 'do5000')">5000</div>
     </div>
 </div>
 <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
