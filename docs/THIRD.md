@@ -42,7 +42,7 @@ z.name()
 z.say("^_^")
 ```
 
-这段代码是中最后调用了两个异步方法，我们希望最后的`z.message`的结果是`hello worle channg,^_^`。但很明显，因为执行时间的不同，这段代码最后`z.message`的结果是`hello worle,^_^ channg`。
+这段代码是中最后调用了两个异步方法，我们希望最后的`z.message`的结果是`hello world channg,^_^`。但很明显，因为执行时间的不同，这段代码最后`z.message`的结果是`hello worle,^_^ channg`。
 
 如何让执行顺序符合我们的预期呢。
 
