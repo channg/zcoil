@@ -90,5 +90,5 @@ try it in[ jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/11/)
 
 >Currently only Chinese documents are available
 
-[doc is here](https://channg.github.io/zcoil/)
+[中文文档](https://channg.github.io/zcoil/)
 
