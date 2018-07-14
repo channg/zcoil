@@ -11,6 +11,12 @@
 
 > `Zcoil` is a model layer framework for more convenient and elegant data manipulation
 
+<h3>document</h3>
+
+>Currently only Chinese documents are available
+
+[中文文档](https://channg.github.io/zcoil/)
+
 <h3>Let's start with the demo</h3>
 
 > The demo uses queues to execute methods
@@ -86,9 +92,5 @@ z.$watch((from,to)=>{
 try it in[ jsfiddle](https://jsfiddle.net/channg/uhfxqsj4/11/)
 
 
-<h3>document</h3>
 
->Currently only Chinese documents are available
-
-[中文文档](https://channg.github.io/zcoil/)
 
