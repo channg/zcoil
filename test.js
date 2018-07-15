@@ -1,63 +1,35 @@
-var vm = new Vue({
+var z = new zcoil()
+z.init({
   data() {
     return {
-      z: {},
-      coil: {},
-      message: [],
-      all:0
+      message: "hello world "
     }
   },
-  created() {
-    this.z = new zcoil({
-      mixin:this
+  asyncGetName() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('my friend')
+      }, 2000)
     })
-    this.z.init({
-      asyncGetSaySomething(time) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(time)
-          }, time)
-        })
-      },
-      say(time) {
-        this.asyncGetSaySomething(time).then(() => {
-          this.$mixin.message.shift()
-          this.$mixin.all+=time
-        })
-      }
-    })
-    this.coil = this.z.$coil()
   },
-  methods: {
-    dosome(time) {
-      var some = this.randomRgb()
-      some.width = time/10+'px'
-      this.message.push({color:some})
-      this.coil = this.coil.say(time).exec(()=>{
-        console.log(this.message)
-      })
-    },
-    randomRgb: function () {
-      var R = Math.floor(Math.random() * 255);
-      var G = Math.floor(Math.random() * 255);
-      var B = Math.floor(Math.random() * 255);
-      return { background: 'rgb(' + R + ',' + G + ',' + B + ')' };
-    },
-    run(){
-      setInterval(()=>{
-        if(this.message[0]){
-          
-          var width = parseInt(this.message[0].color.width.split("px")[0])
-          width = width -3
-          this.message[0].color.width = width+'px'
-        }
-      },30)
-    }
+  asyncGetSaySomething(param) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(param)
+      }, 1000)
+    })
+  },
+  name() {
+    this.asyncGetName().then((name) => {
+      this.message += name
+    })
+  },
+  say(param) {
+    this.asyncGetSaySomething(param).then((say) => {
+      this.message += "," + say
+    })
   }
-}).$mount("#vm")
-vm.dosome(1000)
-vm.dosome(2000)
-vm.dosome(3000)
-vm.dosome(5000)
+})
 
-vm.run()
+z.name()
+z.say("how are you .")
