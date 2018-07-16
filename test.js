@@ -37,16 +37,15 @@ var vm = new Vue({
   data(){
     return{
       z:this.$zcoil,
-      message:""
+      message:"lululu"
     }
   },
   watch:{
     message(some){
-      debugger
     }
   },
   created(){
-    this.z.$use(this)
+    this.z.$use(this,['message'])
     this.z.$coil().say("enjoy this ,").name().exec()
   }
 })
