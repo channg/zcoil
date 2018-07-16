@@ -37,18 +37,7 @@
 </head>
 <body>
 <div id="vm">
-    <h3>zcoil  <a href="https://github.com/channg/zcoil">github</a>  <a href="https://channg.github.io/zcoil/"> document</a></h3><h4>The asynchronous method terminates the solution, using queues</h4>
-    <div class="all-time" v-text="'all time'+all +'ms'"></div>
-    <div class="some" :style="item.color"  v-for="item in message"></div>
-    <div class="button-list">
-        <div class="button" @click="dosome(100)">100</div>
-        <div class="button" @click="dosome(200)">200</div>
-        <div class="button" @click="dosome(300)">300</div>
-        <div class="button" @click="dosome(1000)">1000</div>
-        <div class="button" @click="dosome(2000)">2000</div>
-        <div class="button" @click="dosome(3000)">3000</div>
-        <div class="button" @click="dosome(5000)">5000</div>
-    </div>
+    <div v-text="message"></div>
 </div>
 <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
 <script src="./zcoil.js"></script>

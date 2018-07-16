@@ -9,16 +9,16 @@ import {zcoilConif} from './interface/zcoilConig'
 import {watch} from './watch'
 import scoil from './scoil'
 import {getData, serializeData} from "./serialize";
-
+import {install} from "./vue.ts";
 class zcoil {
     constructor(config?: zcoilConif) {
+        this.install = install
         if (config) {
             config = assign({}, zcoil._init_config, config)
             this._config = config
             this.$mixin = config.mixin
         }
     }
-
     [key: string]: any;
     private _config: any = {}
     private _data: any = null;
