@@ -9,14 +9,14 @@ z.init({
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('my friend')
-      }, 2000)
+      }, 100)
     })
   },
   asyncGetSaySomething(param) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(param)
-      }, 1000)
+      }, 200)
     })
   },
   name() {
@@ -40,7 +40,11 @@ var vm = new Vue({
       message:""
     }
   },
-  store:z,
+  watch:{
+    message(some){
+      debugger
+    }
+  },
   created(){
     this.z.$use(this)
     this.z.$coil().say("enjoy this ,").name().exec()

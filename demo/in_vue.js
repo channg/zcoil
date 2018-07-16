@@ -9,14 +9,14 @@ z.init({
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('my friend')
-      }, 2000)
+      }, 200)
     })
   },
   asyncGetSaySomething(param) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(param)
-      }, 1000)
+      }, 100)
     })
   },
   name() {
