@@ -65,12 +65,17 @@ z.say("how are you ?")
 `exec`函数表示执行当前顺序执行之前所有的函数。
 
 ```javascript
-z.$coil().some()exec((data,error)=>{
+z.$coil().some().exec((data,error)=>{
 })
 ```
-他会在执行钩子的时候传入两个参数，`data`与`z.data`内的数据相同，`error`表示在之前的函数调用中出现过`reject`,如果没有出现`reject`，`error`将返回`null`。
-`error`只是作为一个标识，标识之前的程序存在错误，但并不返回详细信息，如果要处理错误，请在自己的代码中加入`catch`处理。
+`exec`会在执行钩子的时候传入两个参数。
 
+`data`与`z.data`内的数据相同，表示执行队列已经完成最终的到的数据。
+
+`error`表示在之前的函数调用中出现过`reject`，如果没有出现`reject`，`error`将返回`null`。
+
+如果再之前的函数调用只返回一个错误，`error`将等于`reject`传递的数据，如果再调用过程中出现了大于一个的错误，`error`会作为一个包含`Error`的数组被返回。
+可以在方法中统一处理`error`
 
 >tips
 >

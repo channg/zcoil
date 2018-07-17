@@ -190,6 +190,39 @@ z9.init({
   }
 );
 
+var z10 = new zcoil()
+z10.init({
+  data() {
+    return {
+      message: "hello world "
+    }
+  },
+  asyncGetName() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('my friend')
+      }, 100)
+    })
+  },
+  asyncGetSaySomething(param) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(param)
+      }, 200)
+    })
+  },
+  name() {
+    this.asyncGetName().then((name) => {
+      this.message += name
+    })
+  },
+  say(param) {
+    this.asyncGetSaySomething(param).then((say) => {
+      this.message += "," + say
+    }).catch(()=>{})
+  }
+})
+
 
 describe('||||  ZCOIL MOCHA TEST  ||||', () => {
   it('use zcoil', () => {
@@ -267,7 +300,7 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
 
   it('zcoil more one exec() use saveWithExec = false and rollback = true.', (done) => {
     z8.$coil({rollback:true,saveWithExec:false}).aa().exec(function(data){
-      debugger
+    
     }).bb().exec(function (data,error) {
       assert.strictEqual(z8.index, 4);
       assert.strictEqual(data.index, 4);
@@ -280,6 +313,12 @@ describe('||||  ZCOIL MOCHA TEST  ||||', () => {
     }).bb().exec(function (data,error) {
       assert.strictEqual(z9.index, 6);
       assert.strictEqual(data.index, 6);
+      done()
+    })
+  });
+  it('z.$coir() exec one error ', (done) => {
+    z10.$coil().say('err').name().exec(function (data,error) {
+      assert.strictEqual(error,'err');
       done()
     })
   });

@@ -9,7 +9,7 @@ import {zcoilConif} from './interface/zcoilConig'
 import {watch} from './watch'
 import scoil from './scoil'
 import {getData, serializeData} from "./serialize";
-import {install} from "./vue.ts";
+import {install} from './vue';
 class zcoil {
     constructor(config?: zcoilConif) {
         this.install = install
@@ -125,7 +125,7 @@ class zcoil {
                                 Promise.resolve().then(() => {
                                     that._error(key, _to_model)
                                     if (_calls) {
-                                        _calls(key, 'err')
+                                        _calls(key, 'err',error)
                                     }
                                 })
                             })
