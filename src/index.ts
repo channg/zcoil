@@ -2,7 +2,7 @@ import assign = require('lodash/assign');
 import cloneDeep =  require('lodash/cloneDeep');
 import forIn = require('lodash/forIn');
 import  merge =require('lodash/merge');
-import {getTimestamp, isPromise} from './utils'
+import {getTimestamp, isPromise,isFunction} from './utils'
 import {coil} from './coil'
 import {coilConif} from './interface/coilConfig'
 import {zcoilConif} from './interface/zcoilConig'
@@ -85,7 +85,11 @@ class zcoil {
         this._model = {}
         this._serialize()
         if(data){
-            this._data = data()
+            if(isFunction(data)){
+                this._data = data()
+            }else{
+                this._data = cloneDeep(data)
+            }
         }else{
             this._data = {}
         }

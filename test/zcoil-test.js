@@ -1,6 +1,12 @@
 var zcoil = require('../dist/zcoil')
 const assert = require('assert');
 var z = new zcoil()
+var z0 = new zcoil()
+z0.init({
+  data:{
+    a:1
+  }
+})
 z.init({
   data() {
     return {
@@ -225,6 +231,9 @@ z10.init({
 
 
 describe('||||  ZCOIL MOCHA TEST  ||||', () => {
+  it('use data as a Object', () => {
+    assert.strictEqual(z0.a , 1);
+  });
   it('use zcoil', () => {
     assert.strictEqual(zcoil !== null, true);
   });
