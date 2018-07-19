@@ -11,7 +11,7 @@ export function install(Vue:any, options:any) {
      * @param vm
      * @param options
      */
-    this.$use = (vm:any, options:any)=> {
+    this.$invoke = (vm:any, options:any)=> {
         this.$watch((from:any, to:any)=> {
             if (!!options) {
                 if(Array.isArray(options)){

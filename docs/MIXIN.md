@@ -12,51 +12,43 @@ new zcoil({
 
 ## 与vue混用
 
+`zcoil`实例本身就是一个vue插件
 ```javascript
-var vm = new Vue({
-  data() {
-    return {
-      z: {},
-      coil: {},
-      message: "hello world ",
-    }
-  },
-  created() {
-    this.z = new zcoil({
-      mixin:this
-    })
-    this.z.init({
-      asyncGetSaySomething(param) {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(param)
-          }, 200)
-        })
-      },
-      
-      say(param) {
-        this.asyncGetSaySomething(param).then((say) => {
-          this.$mixin.message += "," + say
-        })
-      },
-      endToSay() {
-        this.$mixin.message += ",come on "
-      }
-    })
-  },
-  methods: {
-    dosome() {
-      this.coil = this.z.$coil().say("do some")
-      this.coil = this.coil.endToSay()
-      this.coil = this.coil.say("It works really well")
-      this.coil = this.coil.exec((data)=>{
-        console.log(this.message)
-      })
-    }
-  }
-}).$mount("#vm")
-
-vm.dosome()
+	var z = new zcoil()
+	z.init(...)
+```
+当实例话了一个`zcoil`对象之后，直接可以使用
+```
+	Vue.use(z)
 ```
 
-很遗憾的是，`zcoil`的`$coil`并不能直接使用`vue`内的`methods`，因为`vue`在调用的时候改变了`this`的指向。所以还是需要在`init`的时候传入需要执行的方法。
+这时候，在你的vue组件中的就可以使用`this.$zcoil`获取你使用`Vue.use(z)`的`z`变量。
+
+这时候，你可以在`created`中使用
+```
+created(){
+	this.$zcoil.$invoke(this)
+	}
+```
+这个方法是将`z`内部属性名与`this`相同的变量同步到`this`中。
+```javascript
+	z.init({
+		data:{
+		message:10
+		}
+	})
+
+	new Vue({
+		data(){
+			reuturn {
+				message:0
+			}
+		},
+		created(){
+			this.$zcoil.$invoke(this)
+			//这时候 this.message的值将会变为10
+		}
+	})
+```
+
+接下来你就可以在`vue`中使用`zcoil`了
