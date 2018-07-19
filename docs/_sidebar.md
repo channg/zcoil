@@ -7,6 +7,5 @@
     * [浏览器存储](SPRING.md)
     * [合并实例对象](SUMMER.md)
     * [强制更新](AUTUMN.md)
-    * [一些夙愿](WINTER.md)
 * **马作的卢飞快**
     * [与其他框架混用（vue）](MIXIN.md)
