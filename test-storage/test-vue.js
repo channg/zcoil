@@ -57,7 +57,7 @@ describe('zcoil with vue', function() {
       },
       store:z,
       created(){
-        this.z.$use(this)
+        this.z.$invoke(this)
         this.z.$coil().say("enjoy this ,").name().exec()
       }
     })
