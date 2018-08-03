@@ -1,6 +1,6 @@
 * **醉里挑灯看剑**
     * [为什么要创造这个库](WHY.md)
-    * [前言](README.md)
+    * [前言](GUIDE.md)
     * [入门](FIRST.md)
     * [监听数据变化](SECOND.md)
     * [队列执行函数](THIRD.md)
