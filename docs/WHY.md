@@ -77,7 +77,7 @@ init()
 
 但总有事情不凑巧，虽然在程序一开始执行就调用了`findFood`，但因为`findFood`是异步的，闹铃正好在你`findFood`期间响起来了，由于`javascript`单线程的原因，又因为`EventLoop`模型。
 
-这时候你无法等待`findFood`结束了，直接处罚了`alarmGoOff`里面的方法`eat`。
+这时候你无法等待`findFood`结束了，直接触发了`alarmGoOff`里面的方法`eat`。
 但是很明显这个时候`food`是`null`
 你吃掉了一口`null`
 就这样，嘎嘣一声程序就挂了。
